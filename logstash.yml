@@ -1,0 +1,14 @@
+---
+- name: elk
+  hosts: logstash
+  tasks:
+    - copy:
+        src: /var/ftp/yum_repo/elk.repo
+        dest: /etc/yum.repos.d/elk.repo
+    - yum:
+        name: java-1.8.0-openjdk.x86_64
+        state: latest
+    - yum:
+        name: logstash
+        state: latest
+

@@ -1,0 +1,8 @@
+---
+- name: elk
+  hosts: se
+  tasks:
+    - service:
+        name: elasticsearch
+        state: restarted
+        enabled: yes

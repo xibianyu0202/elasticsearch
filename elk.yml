@@ -1,0 +1,30 @@
+---
+- name: elk
+  hosts: elk
+  tasks:
+    - copy:
+        src: /root/elasticsearch/hosts
+        dest: /etc/hosts
+    - copy:
+        src: /var/ftp/yum_repo/elk.repo
+        dest: /etc/yum.repos.d/elk.repo
+- name: se
+  hosts: se
+  tasks:
+    - yum:
+        name: java-1.8.0-openjdk.x86_64
+        state: latest
+    - yum:
+        name: elasticsearch
+        state: latest
+    - script: /root/elasticsearch/elasticsearch.sh
+    - service:
+        name: elasticsearch
+        state: started
+        enabled: yes
+- name: kibana
+  hosts: kibana
+  tasks:
+    - yum:
+        name: kibana
+        state: latest
